@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ReloadIcon, CaretRightIcon } from "@radix-ui/react-icons";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 import { SalesForceObject, generateFields } from "./ai";
 import { Input } from "./components/ui/input";
@@ -8,7 +8,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -49,10 +48,10 @@ function App() {
                   type="button"
                   variant="secondary"
                   onClick={() => {
-                    localStorage.setItem(
-                      "openai-api-key",
-                      document.getElementById("api-key").value
-                    );
+                    const apiKey = (
+                      document.getElementById("api-key") as HTMLInputElement
+                    ).value;
+                    localStorage.setItem("openai-api-key", apiKey);
                   }}
                 >
                   Save

@@ -4,6 +4,16 @@ import { ReloadIcon, CaretRightIcon } from "@radix-ui/react-icons";
 import { SalesForceObject, generateFields } from "./ai";
 import { Input } from "./components/ui/input";
 import { Button } from "./components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./components/ui/dialog";
 
 function App() {
   const [query, setQuery] = useState(
@@ -20,10 +30,37 @@ function App() {
           <span className="text-slate-500">Forge.</span>
         </h1>
 
-        <Button className="bg-green-600" disabled>
-          Add fields
-          <CaretRightIcon className="ml-2 h-4 w-4" />
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="secondary">Add OpenAI API Key</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Add OpenAI API Key</DialogTitle>
+            </DialogHeader>
+            <div className="flex items-center space-x-2">
+              <div className="grid flex-1 gap-2">
+                <Input id="api-key" />
+              </div>
+            </div>
+            <DialogFooter className="sm:justify-start">
+              <DialogClose asChild>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={() => {
+                    localStorage.setItem(
+                      "openai-api-key",
+                      document.getElementById("api-key").value
+                    );
+                  }}
+                >
+                  Save
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="flex items-center gap-4">

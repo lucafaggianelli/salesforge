@@ -1,12 +1,5 @@
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  organization: "org-7ktJw3crEosTgvLkZ5h7ZOXK",
-  project: "proj_LMoSM9dXOqlRcLfC4cT0a5g0",
-  apiKey: "sk-proj-pV4TZfTPmCIwPRZkhivAT3BlbkFJjxwQvgXN4xZMXcytuPXG",
-  dangerouslyAllowBrowser: true,
-});
-
 export interface SalesForceField {
   name: string;
   type: string;
@@ -18,6 +11,13 @@ export interface SalesForceObject {
 }
 
 export async function generateFields(query: string) {
+  const openai = new OpenAI({
+    organization: "org-7ktJw3crEosTgvLkZ5h7ZOXK",
+    project: "proj_LMoSM9dXOqlRcLfC4cT0a5g0",
+    apiKey: localStorage.getItem("openai-api-key") || "",
+    dangerouslyAllowBrowser: true,
+  });
+
   const messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
     {
       role: "system",
@@ -65,7 +65,7 @@ export async function generateFields(query: string) {
   ];
 
   const response = await openai.chat.completions.create({
-    model: "gpt-4-turbo",
+    model: "gpt-4o",
     messages,
     tools,
     tool_choice: "required",
